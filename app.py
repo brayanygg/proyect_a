@@ -4,7 +4,7 @@ from tkinter import messagebox
 root = Tk()
 
 root.title('Login')
-root.geometry('925x500+300+200')
+root.geometry('925x450+450+250')
 root.configure(bg="#fff")
 root.resizable(False, False)
 
@@ -25,7 +25,7 @@ def autenticar():
     if nombre == 'admin' and password == 'admin':
         print('acceso consedido rango admin')
     else:
-        print('Error')
+        print('Usuario sin el permiso requerido')
 
 def dentro(e):
     nombre = usuario.get()
