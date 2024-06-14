@@ -1,5 +1,6 @@
 from tkinter import *
 from tkinter import messagebox
+from inAout import *
 
 root = Tk()
 
@@ -41,63 +42,23 @@ def autenticar():
         errorMsg = Label(frameAutenticador, text='Usuario sin el permiso requerido', fg='red', bg='white')
         errorMsg.place(x='30', y='250')
 
-
-        
-
-def dentro(e, zone):
-
-    if zone == "user":
-
-        nombre = usuario.get()
-
-        if nombre == "Nombre de usuario":
-            usuario.delete(0, 'end')
-            usuario.configure(fg="black")
-            lineaUsuario.configure(bg="black")
-    elif zone == "pass":
-
-        code = contrasena.get()
-
-        if code == "Contraseña":
-            contrasena.delete(0, 'end')
-            contrasena.configure(fg="black")
-            lineaContra.config(bg="black")
-
-    if errorMsg:
-        errorMsg.destroy()
-
-def fuera(e, zone):
-    if zone == "user":
-        nombre = usuario.get()
-        if nombre == "":
-            usuario.insert(0,'Nombre de usuario')
-            usuario.configure(fg="gray")
-            lineaUsuario.configure(bg="gray")
-            print("si user")
-            
-    elif zone == "pass":
-        code = contrasena.get()
-        if code == "":
-            contrasena.insert(0,'Contraseña')
-            contrasena.configure(fg="gray")
-            lineaContra.configure(bg="gray")
-            print("si contra")
-
+# entry del nombre de usuario y posicionamiento
 usuario = Entry(frameAutenticador, width=31, fg='gray', highlightthickness=0, relief=FLAT, font=('TKDefaultFont', 11))
 usuario.place(x=30, y=80)
 usuario.insert(0,'Nombre de usuario')
-usuario.bind('<FocusIn>', lambda e: dentro(e, "user"))
-usuario.bind('<FocusOut>',lambda e: fuera(e, "user"))
+usuario.bind('<FocusIn>', lambda e: dentro(e, "user", usuario, lineaUsuario, errorMsg))
+usuario.bind('<FocusOut>',lambda e: fuera(e, "user", usuario, lineaUsuario))
 
 # linea debajo del usernameInput
 lineaUsuario = Frame(frameAutenticador,width=295,height=2,bg='gray')
 lineaUsuario.place(x=25, y=107)
 
+# entry de la contraseña y posicionamiento
 contrasena = Entry(frameAutenticador, width=31, fg='gray', highlightthickness=0, relief=FLAT, font=('TKDefaultFont', 11))
 contrasena.place(x=30, y=150)
 contrasena.insert(0,'Contraseña')
-contrasena.bind('<FocusIn>', lambda e: dentro(e, "pass"))
-contrasena.bind('<FocusOut>', lambda e: fuera(e, "pass"))
+contrasena.bind('<FocusIn>', lambda e: dentro(e, "pass", contrasena, lineaContra, errorMsg))
+contrasena.bind('<FocusOut>', lambda e: fuera(e, "pass", contrasena, lineaContra))
 
 # linea debajo del contraseña input
 lineaContra = Frame(frameAutenticador,width=295,height=2,bg='gray')
