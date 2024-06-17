@@ -1,68 +1,89 @@
 from tkinter import *
 from inAout import *
-
-root = Tk()
-
-root.title('Login')
-root.geometry('925x450+450+250')
-root.configure(bg="#fff")
-root.resizable(False, False)
-
-img = PhotoImage(file='./assets/login.png')
-Label(root, image=img, bg='white').place(x=120, y=80)
-
-frameAutenticador = Frame(root, width=350, height=350, bg='white')
-
-frameAutenticador.place(x=480, y=70)
-
-cabecera = Label(frameAutenticador, text='Iniciar sesión', fg='#57a1f8', bg='white', font=('TKDefaultFont', 23, 'bold'))
-cabecera.place(x=55, y=5)
+from ventana import *
 
 global errorMsg
 errorMsg = 0
 
-def autenticar():
-    nombre=usuario.get()
-    password=contrasena.get()
+class Login(Ventana):
 
-    if nombre == 'admin' and password == 'admin':
-        screen=Toplevel(root)
-        screen.title('App')
-        screen.geometry('925x450+450+250')
-        screen.config(bg='white')
+    def __init__(self,title,posYUbi,colorFondo,isResizableX,isResizableY):
+        super().__init__(title,posYUbi,colorFondo)
+        
+        self.resizable(isResizableX,isResizableY)
+    
+    def setImg(self, colorFondo, path, posX, posY):
+        
+        self.img = PhotoImage(file=path)
 
-        root.withdraw()
+        Label(self, image=self.img, bg=colorFondo).place(x=posX, y=posY)
 
-        screen.mainloop()
+    def open(self):
+        nueva = Toplevel(self)
+        nueva.title('nueva')
+        nueva.geometry('925x450+450+250')
+        nueva.config(bg='black')
+        self.screen.destroy()
 
-    else:
-        global errorMsg
+    def autenticar(self):
+        self.nombre = self.usuario.get()
+        self.password = self.contrasena.get()
 
-        errorMsg = Label(frameAutenticador, text='Usuario sin el permiso requerido', fg='red', bg='white')
-        errorMsg.place(x='30', y='250')
+        if self.nombre == 'admin' and self.password == 'admin':
+            self.screen=Toplevel(self)
+            self.screen.title('App')
+            self.screen.geometry('925x450+450+250')
+            self.screen.config(bg='white')
+       
+            Button(self.screen, text="clickea", width=10, height=10, command=self.open).place(x=25, y=30)
 
-# entry del nombre de usuario y posicionamiento
-usuario = Entry(frameAutenticador, width=31, fg='gray', highlightthickness=0, relief=FLAT, font=('TKDefaultFont', 11))
-usuario.place(x=30, y=80)
-usuario.insert(0,'Nombre de usuario')
-usuario.bind('<FocusIn>', lambda e: dentro(e, "user", usuario, lineaUsuario, errorMsg))
-usuario.bind('<FocusOut>',lambda e: fuera(e, "user", usuario, lineaUsuario))
+            self.withdraw()
 
-# linea debajo del usernameInput
-lineaUsuario = Frame(frameAutenticador,width=295,height=2,bg='gray')
-lineaUsuario.place(x=25, y=107)
+            self.screen.mainloop()
 
-# entry de la contraseña y posicionamiento
-contrasena = Entry(frameAutenticador, width=31, fg='gray', highlightthickness=0, relief=FLAT, font=('TKDefaultFont', 11))
-contrasena.place(x=30, y=150)
-contrasena.insert(0,'Contraseña')
-contrasena.bind('<FocusIn>', lambda e: dentro(e, "pass", contrasena, lineaContra, errorMsg))
-contrasena.bind('<FocusOut>', lambda e: fuera(e, "pass", contrasena, lineaContra))
+        else:
+            global errorMsg
 
-# linea debajo del contraseña input
-lineaContra = Frame(frameAutenticador,width=295,height=2,bg='gray')
-lineaContra.place(x=25, y=177)
+            errorMsg = Label(self.frameAutenticador, text='Usuario sin el permiso requerido', fg='red', bg='white')
+            errorMsg.place(x='30', y='250')
 
-Button(frameAutenticador, width=29, pady=7, text='Verificar', bg='#57a1f8', cursor='hand2', fg='white', border=0, command=autenticar).place(x=45, y=204)
+    def autenticationFrame(self):
+        
+        self.frameAutenticador = Frame(self, width=350, height=350, bg='white')
+        self.frameAutenticador.place(x=480, y=70)
 
-root.mainloop()
+        self.cabecera = Label(self.frameAutenticador, text='Iniciar sesión', fg='#57a1f8', bg='white', font=('TKDefaultFont', 23, 'bold'))
+        self.cabecera.place(x=55, y=5)
+
+        # entry del nombre de usuario y posicionamiento
+        self.usuario = Entry(self.frameAutenticador, width=31, fg='gray', highlightthickness=0, relief=FLAT, font=('TKDefaultFont', 11))
+        self.usuario.place(x=30, y=80)
+        self.usuario.insert(0,'Nombre de usuario')
+        self.usuario.bind('<FocusIn>', lambda e: dentro(e, "user", self.usuario, self.lineaUsuario, errorMsg))
+        self.usuario.bind('<FocusOut>',lambda e: fuera(e, "user", self.usuario, self.lineaUsuario))
+
+        # linea debajo del usernameInput
+        self.lineaUsuario = Frame(self.frameAutenticador,width=295,height=2,bg='gray')
+        self.lineaUsuario.place(x=25, y=107)
+
+        # entry de la contraseña y posicionamiento
+        self.contrasena = Entry(self.frameAutenticador, width=31, fg='gray', highlightthickness=0, relief=FLAT, font=('TKDefaultFont', 11))
+        self.contrasena.place(x=30, y=150)
+        self.contrasena.insert(0,'Contraseña')
+        self.contrasena.bind('<FocusIn>', lambda e: dentro(e, "pass", self.contrasena, self.lineaContra, errorMsg))
+        self.contrasena.bind('<FocusOut>', lambda e: fuera(e, "pass", self.contrasena, self.lineaContra))
+
+        # linea debajo del contraseña input
+        self.lineaContra = Frame(self.frameAutenticador,width=295,height=2,bg='gray')
+        self.lineaContra.place(x=25, y=177)
+
+        Button(self.frameAutenticador, width=29, pady=7, text='Verificar', bg='#57a1f8', cursor='hand2', fg='white', border=0, command=self.autenticar).place(x=45, y=204)
+
+
+miLogin = Login("Login", "925x450+450+250", "#fff",0,0)
+
+miLogin.setImg('#fff','./assets/login.png', 120, 80)
+
+miLogin.autenticationFrame()
+
+miLogin.mainloop()
