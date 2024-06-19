@@ -8,3 +8,4 @@ class Ventana(Tk):
         self.title(title)
         self.geometry(posYUbi)
         self.config(bg=colorFondo)
+        

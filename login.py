@@ -1,6 +1,7 @@
 from tkinter import *
 from inAout import *
 from ventana import *
+from menu import *
 
 global errorMsg
 errorMsg = 0
@@ -11,41 +12,28 @@ class Login(Ventana):
         super().__init__(title,posYUbi,colorFondo)
         
         self.resizable(isResizableX,isResizableY)
-    
     def setImg(self, colorFondo, path, posX, posY):
         
         self.img = PhotoImage(file=path)
 
         Label(self, image=self.img, bg=colorFondo).place(x=posX, y=posY)
 
-    def open(self):
-        nueva = Toplevel(self)
-        nueva.title('nueva')
-        nueva.geometry('925x450+450+250')
-        nueva.config(bg='black')
-        self.screen.destroy()
-
     def autenticar(self):
-        self.nombre = self.usuario.get()
-        self.password = self.contrasena.get()
+        # self.nombre = self.usuario.get()
+        # self.password = self.contrasena.get()
 
-        if self.nombre == 'admin' and self.password == 'admin':
-            self.screen=Toplevel(self)
-            self.screen.title('App')
-            self.screen.geometry('925x450+450+250')
-            self.screen.config(bg='white')
-       
-            Button(self.screen, text="clickea", width=10, height=10, command=self.open).place(x=25, y=30)
+        # if self.nombre == 'admin' and self.password == 'admin':
+            
+            self.screen = Menu(self,'Registro', '925x450+450+250', '#fff')
+            self.screen.setImg('#fff','./assets/login.png', 120, 80)
 
-            self.withdraw()
+        #     self.withdraw()
 
-            self.screen.mainloop()
+        # else:
+        #     global errorMsg
 
-        else:
-            global errorMsg
-
-            errorMsg = Label(self.frameAutenticador, text='Usuario sin el permiso requerido', fg='red', bg='white')
-            errorMsg.place(x='30', y='250')
+        #     errorMsg = Label(self.frameAutenticador, text='Usuario sin el permiso requerido', fg='red', bg='white')
+        #     errorMsg.place(x='30', y='250')
 
     def autenticationFrame(self):
         
