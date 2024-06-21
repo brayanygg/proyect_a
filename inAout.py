@@ -1,15 +1,12 @@
 def dentro(e, zone, contenido, linea, errorMsg):
 
-    if zone == "user":
+    if contenido.get() == zone:
+        contenido.delete(0, 'end')
+        contenido.configure(fg="black")
 
-        if contenido.get() == "Nombre de usuario":
-            contenido.delete(0, 'end')
-            contenido.configure(fg="black")
-    elif zone == "pass":
+    if zone == "Contraseña":
 
-        if contenido.get() == "Contraseña":
-            contenido.delete(0, 'end')
-            contenido.configure(fg="black", show="*")
+            contenido.configure(show="*")
             
     linea.configure(bg="black")
     
@@ -17,16 +14,12 @@ def dentro(e, zone, contenido, linea, errorMsg):
         errorMsg.destroy()
 
 def fuera(e, zone, contenido, linea):
-    if zone == "user":
 
-        if contenido.get() == "":
-            contenido.insert(0,'Nombre de usuario')
-            contenido.configure(fg="gray")
+    if contenido.get() == "":
+        contenido.insert(0,zone)
+        contenido.configure(fg="gray")
 
-    elif zone == "pass":
-
-        if contenido.get() == "":
-            contenido.insert(0,'Contraseña')
-            contenido.configure(fg="gray", show="")
+        if zone == "Contraseña":
+            contenido.configure(show="")
 
     linea.configure(bg="gray")

@@ -47,8 +47,8 @@ class Login(Ventana):
         self.usuario = Entry(self.frameAutenticador, width=31, fg='gray', highlightthickness=0, relief=FLAT, font=('TKDefaultFont', 11))
         self.usuario.place(x=30, y=80)
         self.usuario.insert(0,'Nombre de usuario')
-        self.usuario.bind('<FocusIn>', lambda e: dentro(e, "user", self.usuario, self.lineaUsuario, errorMsg))
-        self.usuario.bind('<FocusOut>',lambda e: fuera(e, "user", self.usuario, self.lineaUsuario))
+        self.usuario.bind('<FocusIn>', lambda e: dentro(e, "Nombre de usuario", self.usuario, self.lineaUsuario, errorMsg))
+        self.usuario.bind('<FocusOut>',lambda e: fuera(e, "Nombre de usuario", self.usuario, self.lineaUsuario))
 
         # linea debajo del usernameInput
         self.lineaUsuario = Frame(self.frameAutenticador,width=295,height=2,bg='gray')
@@ -58,8 +58,8 @@ class Login(Ventana):
         self.contrasena = Entry(self.frameAutenticador, width=31, fg='gray', highlightthickness=0, relief=FLAT, font=('TKDefaultFont', 11))
         self.contrasena.place(x=30, y=150)
         self.contrasena.insert(0,'Contraseña')
-        self.contrasena.bind('<FocusIn>', lambda e: dentro(e, "pass", self.contrasena, self.lineaContra, errorMsg))
-        self.contrasena.bind('<FocusOut>', lambda e: fuera(e, "pass", self.contrasena, self.lineaContra))
+        self.contrasena.bind('<FocusIn>', lambda e: dentro(e, "Contraseña", self.contrasena, self.lineaContra, errorMsg))
+        self.contrasena.bind('<FocusOut>', lambda e: fuera(e, "Contraseña", self.contrasena, self.lineaContra))
 
         # linea debajo del contraseña input
         self.lineaContra = Frame(self.frameAutenticador,width=295,height=2,bg='gray')
