@@ -1,7 +1,9 @@
 from tkinter import *
 from inAout import *
 from ventana import *
-from menu import *
+from registroB import *
+from selection import *
+from app import *
 
 global errorMsg
 errorMsg = 0
@@ -23,10 +25,9 @@ class Login(Ventana):
         # self.password = self.contrasena.get()
 
         # if self.nombre == 'admin' and self.password == 'admin':
-            
-            self.screen = Menu(self,'Registro', '925x450+450+250', '#fff')
-            self.screen.setImg('#fff','./assets/login.png', 120, 80)
 
+        #    self.menu = Menu(self,'Menu','550x450+650+250','#fff')
+            self.app = AppMain(self, 'app','925x450+450+250','#fff')
         #     self.withdraw()
 
         # else:
@@ -46,9 +47,9 @@ class Login(Ventana):
         # entry del nombre de usuario y posicionamiento
         self.usuario = Entry(self.frameAutenticador, width=31, fg='gray', highlightthickness=0, relief=FLAT, font=('TKDefaultFont', 11))
         self.usuario.place(x=30, y=80)
-        self.usuario.insert(0,'Nombre de usuario')
-        self.usuario.bind('<FocusIn>', lambda e: dentro(e, "Nombre de usuario", self.usuario, self.lineaUsuario, errorMsg))
-        self.usuario.bind('<FocusOut>',lambda e: fuera(e, "Nombre de usuario", self.usuario, self.lineaUsuario))
+        self.usuario.insert(0,'Nombre de usuario ')
+        self.usuario.bind('<FocusIn>', lambda e: dentro(e, "Nombre de usuario ", self.usuario, self.lineaUsuario, errorMsg))
+        self.usuario.bind('<FocusOut>',lambda e: fuera(e, "Nombre de usuario ", self.usuario, self.lineaUsuario))
 
         # linea debajo del usernameInput
         self.lineaUsuario = Frame(self.frameAutenticador,width=295,height=2,bg='gray')
@@ -57,9 +58,9 @@ class Login(Ventana):
         # entry de la contraseña y posicionamiento
         self.contrasena = Entry(self.frameAutenticador, width=31, fg='gray', highlightthickness=0, relief=FLAT, font=('TKDefaultFont', 11))
         self.contrasena.place(x=30, y=150)
-        self.contrasena.insert(0,'Contraseña')
-        self.contrasena.bind('<FocusIn>', lambda e: dentro(e, "Contraseña", self.contrasena, self.lineaContra, errorMsg))
-        self.contrasena.bind('<FocusOut>', lambda e: fuera(e, "Contraseña", self.contrasena, self.lineaContra))
+        self.contrasena.insert(0,'Contraseña ')
+        self.contrasena.bind('<FocusIn>', lambda e: dentro(e, "Contraseña ", self.contrasena, self.lineaContra, errorMsg))
+        self.contrasena.bind('<FocusOut>', lambda e: fuera(e, "Contraseña ", self.contrasena, self.lineaContra))
 
         # linea debajo del contraseña input
         self.lineaContra = Frame(self.frameAutenticador,width=295,height=2,bg='gray')

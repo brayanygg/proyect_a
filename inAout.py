@@ -4,7 +4,7 @@ def dentro(e, zone, contenido, linea, errorMsg):
         contenido.delete(0, 'end')
         contenido.configure(fg="black")
 
-    if zone == "Contraseña":
+    if zone == "Contraseña ":
 
             contenido.configure(show="*")
             
@@ -19,7 +19,7 @@ def fuera(e, zone, contenido, linea):
         contenido.insert(0,zone)
         contenido.configure(fg="gray")
 
-        if zone == "Contraseña":
+        if zone == "Contraseña ":
             contenido.configure(show="")
 
     linea.configure(bg="gray")
