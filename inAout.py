@@ -1,4 +1,4 @@
-def dentro(e, zone, contenido, linea, errorMsg):
+def dentro(e, zone, contenido, linea):
 
     if contenido.get() == zone:
         contenido.delete(0, 'end')
@@ -9,9 +9,6 @@ def dentro(e, zone, contenido, linea, errorMsg):
             contenido.configure(show="*")
             
     linea.configure(bg="black")
-    
-    if errorMsg:
-        errorMsg.destroy()
 
 def fuera(e, zone, contenido, linea):
 

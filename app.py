@@ -12,7 +12,7 @@ class User():
 k=0
 clientes = []
 
-while k < 15:
+while k < 100:
 
     clientes.append(User('30853248','brayan', 'gafaro', '04141754875', 'romulo', True))
 
@@ -37,11 +37,11 @@ class AppMain(Top):
         
         self.navFrame.columnconfigure(0, weight=9)  # gap column
         self.navFrame.columnconfigure(1, weight=1)  # admin button
-        self.navFrame.columnconfigure(2, weight=1)  # reports button
+        self.navFrame.columnconfigure(2, weight=1)  # reports(self) button
         self.navFrame.columnconfigure(3, weight=9)  # gap column
 
-        Button(self.navFrame,text="Añadir admin",bg='#57a1f8', cursor='hand2', fg='white', highlightthickness=0, relief=FLAT).grid(row=0, column=1, sticky="nsew", padx=5, pady=12)
-        Button(self.navFrame,text="Imprimir reportes",bg='#57a1f8', cursor='hand2', fg='white', highlightthickness=0, relief=FLAT).grid(row=0, column=2, sticky="nsew", padx=5, pady=12)
+        Button(self.navFrame,text="Añadir admin",bg='#57a1f8', cursor='hand2', fg='white', highlightthickness=0, relief=FLAT, command=self.addAdmin).grid(row=0, column=1, sticky="nsew", padx=5, pady=12)
+        Button(self.navFrame,text="Imprimir reportes",bg='#57a1f8', cursor='hand2', fg='white', highlightthickness=0, relief=FLAT, command=self.reports).grid(row=0, column=2, sticky="nsew", padx=5, pady=12)
 
     def mainContent(self):
 
@@ -104,7 +104,20 @@ class AppMain(Top):
             Label(self.frameContenedor, text=(clientes[i].telefono),font=('TKDefaultFont', 12), bg="#fff").grid(column=3,row=i+1,sticky=NSEW, )
             Label(self.frameContenedor, text=('Si'),font=('TKDefaultFont', 12), bg="#fff").grid(column=4,row=i+1,sticky=NSEW, )
             Label(self.frameContenedor, text=(clientes[i].direccion),font=('TKDefaultFont', 12), bg="#fff").grid(column=5,row=i+1,sticky=NSEW, )
-            Button(self.frameContenedor,text='Modificar',font=('TKDefaultFont', 10), bg='#2f2c79', fg="#fff", highlightthickness=0, relief=FLAT, cursor="hand2").grid(column=6,row=i+1, pady=(4,0))
-            Button(self.frameContenedor,text='Eliminar',font=('TKDefaultFont', 10), bg='#2f2c79',fg="#fff", highlightthickness=0, relief=FLAT, cursor="hand2").grid(column=7,row=i+1, pady=(2,0), padx=(4,0))
+            
+            Button(self.frameContenedor,text='Modificar',font=('TKDefaultFont', 10), bg='#2f2c79', fg="#fff", highlightthickness=0, relief=FLAT, cursor="hand2", command=self.toModify).grid(column=6,row=i+1, pady=(4,0))
+            Button(self.frameContenedor,text='Eliminar',font=('TKDefaultFont', 10), bg='#2f2c79',fg="#fff", highlightthickness=0, relief=FLAT, cursor="hand2", command=self.toDelete).grid(column=7,row=i+1, pady=(2,0), padx=(4,0))
             
             i = i+1
+
+    def addAdmin(self):
+        print("new Admin")
+
+    def reports(self):
+        print("generando reporte...")
+
+    def toModify(self):
+        print("modificado")
+
+    def toDelete(self):
+        print("eliminado")

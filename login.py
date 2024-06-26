@@ -1,18 +1,16 @@
 from tkinter import *
 from inAout import *
 from ventana import *
-from registroB import *
 from selection import *
-from app import *
-
-global errorMsg
-errorMsg = 0
+from comprobarD import *
 
 class Login(Ventana):
 
     def __init__(self,title,posYUbi,colorFondo,isResizableX,isResizableY):
         super().__init__(title,posYUbi,colorFondo)
         
+        self.counter = 0
+        self.errorMsg = 0
         self.resizable(isResizableX,isResizableY)
     def setImg(self, colorFondo, path, posX, posY):
         
@@ -21,20 +19,36 @@ class Login(Ventana):
         Label(self, image=self.img, bg=colorFondo).place(x=posX, y=posY)
 
     def autenticar(self):
-        # self.nombre = self.usuario.get()
-        # self.password = self.contrasena.get()
+        self.nombre = self.usuario.get()
+        self.password = self.contrasena.get()
+        
 
-        # if self.nombre == 'admin' and self.password == 'admin':
+        if (self.nombre).strip() == 'admin' and (self.password).strip() == 'admin':
 
-        #    self.menu = Menu(self,'Menu','550x450+650+250','#fff')
-            self.app = AppMain(self, 'app','925x450+450+250','#fff')
-        #     self.withdraw()
+            self.menu = MenuV(self,'Menu','550x450+650+250','#fff')
+           
+            self.withdraw()
+        #   self.app = AppMain(self, 'app','925x450+450+250','#fff')
+        
+        elif not comprobarV(self.nombre,"Nombre de usuario ") or not comprobarV(self.password, "Contraseña "):
 
-        # else:
-        #     global errorMsg
+            if(self.counter):
+                self.errorMsg.destroy()
+                self.counter = 0
 
-        #     errorMsg = Label(self.frameAutenticador, text='Usuario sin el permiso requerido', fg='red', bg='white')
-        #     errorMsg.place(x='30', y='250')
+            self.errorMsg = Label(self.campoMensajes, text="Campo vacio", fg="red", bg="white")
+            self.errorMsg.pack()
+            self.counter = 1
+        
+        else:
+            if(self.counter):
+                self.errorMsg.destroy()
+                self.counter = 0
+
+            self.errorMsg = Label(self.campoMensajes, text="cuenta invalida", fg="red", bg="white")
+            self.errorMsg.pack()
+            self.counter = 1
+
 
     def autenticationFrame(self):
         
@@ -48,7 +62,7 @@ class Login(Ventana):
         self.usuario = Entry(self.frameAutenticador, width=31, fg='gray', highlightthickness=0, relief=FLAT, font=('TKDefaultFont', 11))
         self.usuario.place(x=30, y=80)
         self.usuario.insert(0,'Nombre de usuario ')
-        self.usuario.bind('<FocusIn>', lambda e: dentro(e, "Nombre de usuario ", self.usuario, self.lineaUsuario, errorMsg))
+        self.usuario.bind('<FocusIn>', lambda e: dentro(e, "Nombre de usuario ", self.usuario, self.lineaUsuario))
         self.usuario.bind('<FocusOut>',lambda e: fuera(e, "Nombre de usuario ", self.usuario, self.lineaUsuario))
 
         # linea debajo del usernameInput
@@ -59,15 +73,17 @@ class Login(Ventana):
         self.contrasena = Entry(self.frameAutenticador, width=31, fg='gray', highlightthickness=0, relief=FLAT, font=('TKDefaultFont', 11))
         self.contrasena.place(x=30, y=150)
         self.contrasena.insert(0,'Contraseña ')
-        self.contrasena.bind('<FocusIn>', lambda e: dentro(e, "Contraseña ", self.contrasena, self.lineaContra, errorMsg))
+        self.contrasena.bind('<FocusIn>', lambda e: dentro(e, "Contraseña ", self.contrasena, self.lineaContra), )
         self.contrasena.bind('<FocusOut>', lambda e: fuera(e, "Contraseña ", self.contrasena, self.lineaContra))
 
         # linea debajo del contraseña input
         self.lineaContra = Frame(self.frameAutenticador,width=295,height=2,bg='gray')
         self.lineaContra.place(x=25, y=177)
 
-        Button(self.frameAutenticador, width=29, pady=7, text='Verificar', bg='#57a1f8', cursor='hand2', fg='white', border=0, command=self.autenticar).place(x=45, y=204)
+        self.campoMensajes = Frame(self.frameAutenticador, bg="white")
+        self.campoMensajes.place(x=120, y=250)
 
+        Button(self.frameAutenticador, width=29, pady=7, text='Verificar', bg='#57a1f8', cursor='hand2', fg='white', border=0, command=self.autenticar).place(x=45, y=204)
 
 miLogin = Login("Login", "925x450+450+250", "#fff",0,0)
 
